@@ -3,26 +3,23 @@
 ## Live: 
 GCP: 
 
-#### Steps
+### Steps
 Set up a virtualenv and activate
 
     virtualenv venv -p python3
     
     source venv/bin/activate
 
-##### Files needed
-None
-
-##### Install requirements 
+#### Install requirements 
     pip install -r requirements.txt
 
-##### Run the code
+#### Run the code
     python manage.py runserver 
     
-##### Behold!
+#### Behold!
 Go to http://localhost:8000/
 
-##### Styling guide
+### Styling guide
 Python: follow flake8
 
 Javascript: follow eslint
