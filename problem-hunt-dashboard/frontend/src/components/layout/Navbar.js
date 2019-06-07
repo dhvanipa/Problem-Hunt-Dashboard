@@ -1,8 +1,21 @@
 import React, {Component} from 'react';
-import {Button, Header, Image, Modal, Input, Menu} from 'semantic-ui-react';
+import {
+  Button,
+  Header,
+  Image,
+  Modal,
+  Input,
+  Menu,
+  Icon,
+} from 'semantic-ui-react';
 
 export class Navbar extends Component {
   state = {activeItem: 'home'};
+
+  loginFacebook = () => {
+    const url = 'accounts/facebook/login/?process=login';
+    window.open (url, '_self');
+  };
 
   handleItemClick = (e, {name}) => this.setState ({activeItem: name});
 
@@ -32,19 +45,20 @@ export class Navbar extends Component {
           </Menu.Item>
           <Menu.Item>
             <Modal trigger={<Button primary>Sign Up</Button>} centered={false}>
-              <Modal.Header>Select a Photo</Modal.Header>
+              <Modal.Header>Login to Problem Hunt</Modal.Header>
               <Modal.Content image>
-                <Image
-                  wrapped
-                  size="medium"
-                  src="https://react.semantic-ui.com/images/avatar/large/rachel.png"
-                />
                 <Modal.Description>
-                  <Header>Default Profile Image</Header>
+                  <Header>Social Login</Header>
                   <p>
-                    We've found the following gravatar image associated with your e-mail address.
+                    We're a community of product people here to geek out and discover new, interesting products.
                   </p>
-                  <p>Is it okay to use this photo?</p>
+                  <Button color="facebook" onClick={this.loginFacebook}>
+                    <Icon name="facebook" />
+                    Facebook
+                  </Button>
+                  <p>
+                    We'll never post to any of your accounts without your permission.
+                  </p>
                 </Modal.Description>
               </Modal.Content>
             </Modal>
