@@ -1,0 +1,35 @@
+{
+  "name": "problem-hunt-dashboard",
+  "version": "1.0.0",
+  "description": "## Live:  GCP:",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development ./problem-hunt-dashboard/frontend/src/index.js --output ./problem-hunt-dashboard/frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./problem-hunt-dashboard/frontend/src/index.js --output ./problem-hunt-dashboard/frontend/static/frontend/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dhvani35729/Problem-Hunt-Dashboard.git"
+  },
+  "author": "Dhvani & Dhruv",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dhvani35729/Problem-Hunt-Dashboard/issues"
+  },
+  "homepage": "https://github.com/Dhvani35729/Problem-Hunt-Dashboard#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.3"
+  },
+  "dependencies": {
+    "eslint": "^5.16.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

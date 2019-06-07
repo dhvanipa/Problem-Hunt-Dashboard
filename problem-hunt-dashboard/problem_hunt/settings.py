@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'app',
     'rest_framework',
+    'frontend',
 
     'allauth',
     'allauth.account',
