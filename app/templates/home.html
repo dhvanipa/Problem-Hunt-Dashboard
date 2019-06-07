@@ -1,0 +1,9 @@
+{% load socialaccount %}
+
+<h1>Problem Hunt</h1>
+{% if user.is_authenticated %}
+<p>Welcome {{ user.username }} !!!</p>
+{% else %}
+{% providers_media_js %}
+<a href="{% provider_login_url "facebook" method="js_sdk" %}">Facebook Connect</a>
+{% endif %}
