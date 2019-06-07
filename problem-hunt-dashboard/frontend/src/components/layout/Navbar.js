@@ -10,63 +10,139 @@ import {
 } from 'semantic-ui-react';
 
 export class Navbar extends Component {
-  state = {activeItem: 'home'};
+  constructor (props) {
+    super (props);
+    this.state = {
+      error: null,
+      activeMenuItem: 'Browse',
+      activeFilterItem: 'closest',
+      user: this.props.user,
+    };
+  }
+
+  componentDidMount () {}
+
+  componentDidUpdate (prevProps) {
+    if (this.props.user !== prevProps.user) {
+      this.setState ({user: this.props.user});
+    }
+  }
 
   loginFacebook = () => {
     const url = 'accounts/facebook/login/?process=login';
     window.open (url, '_self');
   };
 
-  handleItemClick = (e, {name}) => this.setState ({activeItem: name});
+  loginTwitter = () => {
+    const url = 'accounts/twitter/login/?process=login';
+    window.open (url, '_self');
+  };
+
+  logout = () => {
+    const url = 'accounts/logout';
+    window.open (url, '_self');
+  };
+
+  handleMenuItemClick = (e, {name}) => this.setState ({activeMenuItem: name});
+  handleFilterItemClick = (e, {name}) =>
+    this.setState ({activeFilterItem: name});
 
   render () {
-    const {activeItem} = this.state;
-
+    const {activeMenuItem, activeFilterItem, user} = this.state;
     return (
       <Menu secondary>
         <Menu.Item
-          name="home"
-          active={activeItem === 'home'}
-          onClick={this.handleItemClick}
+          name="Browse"
+          active={activeMenuItem === 'Browse'}
+          onClick={this.handleMenuItemClick}
         />
         <Menu.Item
-          name="messages"
-          active={activeItem === 'messages'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name="friends"
-          active={activeItem === 'friends'}
-          onClick={this.handleItemClick}
+          name="Submit"
+          active={activeMenuItem === 'Submit'}
+          onClick={this.handleMenuItemClick}
         />
         <Menu.Menu position="right">
+          <Menu.Item header>Sort By</Menu.Item>
+          <Menu.Item
+            name="closest"
+            active={activeFilterItem === 'closest'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            name="mostComments"
+            active={activeFilterItem === 'mostComments'}
+            onClick={this.handleFilterItemClick}
+          />
+          <Menu.Item
+            name="mostPopular"
+            active={activeFilterItem === 'mostPopular'}
+            onClick={this.handleFilterItemClick}
+          />
           <Menu.Item>
             <Input icon="search" placeholder="Search..." />
           </Menu.Item>
-          <Menu.Item>
-            <Modal trigger={<Button primary>Sign Up</Button>} centered={false}>
-              <Modal.Header>Login to Problem Hunt</Modal.Header>
-              <Modal.Content image>
-                <Modal.Description>
-                  <Header>Social Login</Header>
-                  <p>
-                    We're a community of product people here to geek out and discover new, interesting products.
-                  </p>
-                  <Button color="facebook" onClick={this.loginFacebook}>
-                    <Icon name="facebook" />
-                    Facebook
-                  </Button>
-                  <p>
-                    We'll never post to any of your accounts without your permission.
-                  </p>
-                </Modal.Description>
-              </Modal.Content>
-            </Modal>
-          </Menu.Item>
-
-          <Menu.Item>
-            <Button>Log-in</Button>
-          </Menu.Item>
+          {user &&
+            <Menu.Item>
+              <Image src={user.picture} avatar />
+              <span>{user.full_name}</span>
+            </Menu.Item>}
+          {!user &&
+            <Menu.Item>
+              <Modal
+                trigger={<Button primary>Sign Up</Button>}
+                centered={false}
+              >
+                <Modal.Header>Login to Problem Hunt</Modal.Header>
+                <Modal.Content image>
+                  <Modal.Description>
+                    <Header>Social Login</Header>
+                    <p>
+                      We're a community of product people here to geek out and discover new, interesting products.
+                    </p>
+                    <Button color="facebook" onClick={this.loginFacebook}>
+                      <Icon name="facebook" />
+                      Facebook
+                    </Button>
+                    <Button color="twitter" onClick={this.loginTwitter}>
+                      <Icon name="twitter" />
+                      Twitter
+                    </Button>
+                    <p>
+                      We'll never post to any of your accounts without your permission.
+                    </p>
+                  </Modal.Description>
+                </Modal.Content>
+              </Modal>
+            </Menu.Item>}
+          {!user &&
+            <Menu.Item>
+              <Modal trigger={<Button>Login In</Button>} centered={false}>
+                <Modal.Header>Login to Problem Hunt</Modal.Header>
+                <Modal.Content image>
+                  <Modal.Description>
+                    <Header>Social Login</Header>
+                    <p>
+                      We're a community of product people here to geek out and discover new, interesting products.
+                    </p>
+                    <Button color="facebook" onClick={this.loginFacebook}>
+                      <Icon name="facebook" />
+                      Facebook
+                    </Button>
+                    <Button color="twitter" onClick={this.loginTwitter}>
+                      <Icon name="twitter" />
+                      Twitter
+                    </Button>
+                    <p>
+                      We'll never post to any of your accounts without your permission.
+                    </p>
+                  </Modal.Description>
+                </Modal.Content>
+              </Modal>
+            </Menu.Item>}
+          {user &&
+            <Menu.Item>
+              <Button color="red" onClick={this.logout}>Log Out</Button>
+            </Menu.Item>}
         </Menu.Menu>
       </Menu>
     );
