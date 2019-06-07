@@ -1,21 +1,23 @@
 # Problem Hunt Dashboard
 
-## Live: 
-GCP: 
+## Live:
+GCP:
 
 ### Steps
 Set up a virtualenv and activate
 
     virtualenv venv -p python3
-    
+
     source venv/bin/activate
 
-#### Install requirements 
+#### Install requirements
     pip install -r requirements.txt
 
+    npm install
+
 #### Run the code
-    python manage.py runserver 
-    
+    python manage.py runserver
+
 #### Behold!
 Go to http://localhost:8000/
 
