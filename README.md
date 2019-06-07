@@ -24,6 +24,7 @@ Go to http://localhost:8000/
 
 ##### Styling guide
 Python: follow flake8
+
 Javascript: follow eslint
 
 ### Libraries Added:
