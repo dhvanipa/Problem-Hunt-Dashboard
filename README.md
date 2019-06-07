@@ -17,6 +17,7 @@ Set up a virtualenv and activate
 
 #### Run the code
     python manage.py runserver
+    npm run dev
 
 #### Behold!
 Go to http://localhost:8000/
