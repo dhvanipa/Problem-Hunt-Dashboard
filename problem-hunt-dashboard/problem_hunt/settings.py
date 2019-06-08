@@ -141,6 +141,34 @@ SOCIALACCOUNT_PROVIDERS = {
         'EXCHANGE_TOKEN': True,
         'VERIFIED_EMAIL': False,
         'VERSION': 'v3.3',
+    },
+    'linkedin': {
+        'SCOPE': [
+            'r_basicprofile',
+            'r_emailaddress'
+        ],
+        'PROFILE_FIELDS': [
+            'id',
+            'first-name',
+            'last-name',
+            'email-address',
+            'picture-url',
+            'public-profile-url',
+        ]
+    },
+    'linkedin_oauth2': {
+        'SCOPE': [
+            'r_basicprofile',
+            'r_emailaddress'
+        ],
+        'PROFILE_FIELDS': [
+            'id',
+            'first-name',
+            'last-name',
+            'email-address',
+            'picture-url',
+            'public-profile-url',
+        ]
     }
 }
 
