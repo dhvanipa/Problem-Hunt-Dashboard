@@ -7,7 +7,9 @@ import {
   Input,
   Menu,
   Icon,
+  Label,
 } from 'semantic-ui-react';
+import './Navbar.css';
 
 export class Navbar extends Component {
   constructor (props) {
@@ -50,34 +52,11 @@ export class Navbar extends Component {
   render () {
     const {activeMenuItem, activeFilterItem, user} = this.state;
     return (
-      <Menu secondary>
-        <Menu.Item
-          name="Browse"
-          active={activeMenuItem === 'Browse'}
-          onClick={this.handleMenuItemClick}
-        />
-        <Menu.Item
-          name="Submit"
-          active={activeMenuItem === 'Submit'}
-          onClick={this.handleMenuItemClick}
-        />
+      <Menu pointing secondary>
+        <Menu.Item header>
+          <Icon name="home" color="blue" size="large" /> ProblemHunt
+        </Menu.Item>
         <Menu.Menu position="right">
-          <Menu.Item header>Sort By</Menu.Item>
-          <Menu.Item
-            name="closest"
-            active={activeFilterItem === 'closest'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name="mostComments"
-            active={activeFilterItem === 'mostComments'}
-            onClick={this.handleFilterItemClick}
-          />
-          <Menu.Item
-            name="mostPopular"
-            active={activeFilterItem === 'mostPopular'}
-            onClick={this.handleFilterItemClick}
-          />
           <Menu.Item>
             <Input icon="search" placeholder="Search..." />
           </Menu.Item>
@@ -116,7 +95,10 @@ export class Navbar extends Component {
             </Menu.Item>}
           {!user &&
             <Menu.Item>
-              <Modal trigger={<Button>Login In</Button>} centered={false}>
+              <Modal
+                trigger={<Button color="teal">Login In</Button>}
+                centered={false}
+              >
                 <Modal.Header>Login to Problem Hunt</Modal.Header>
                 <Modal.Content image>
                   <Modal.Description>

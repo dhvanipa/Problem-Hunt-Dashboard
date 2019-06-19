@@ -27,11 +27,13 @@
     "webpack-cli": "^3.3.3"
   },
   "dependencies": {
+    "css-loader": "^3.0.0",
     "eslint": "^5.16.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "semantic-ui": "^2.4.2",
-    "semantic-ui-react": "^0.87.1"
+    "semantic-ui-react": "^0.87.1",
+    "style-loader": "^0.23.1"
   }
 }

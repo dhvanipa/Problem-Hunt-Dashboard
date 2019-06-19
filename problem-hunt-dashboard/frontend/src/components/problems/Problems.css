@@ -1,0 +1,46 @@
+.ui.horizontal.segments {
+  background-color: initial !important;
+}
+
+.box {
+  align-content: left;
+  background-color: #6c6e7e;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  min-height: 6em;
+  padding: 25px;
+  border-radius: 10px;
+}
+.box > span {
+  text-align: left;
+}
+
+h2.ui.inverted.left.aligned.header {
+  margin-top: 10px;
+}
+
+.ui.inverted.segment {
+  width: 70%;
+}
+
+.ui.left.rail {
+  position: initial;
+  padding: initial;
+}
+
+.ui.card {
+  background-color: #6c6e7e;
+  border-radius: 10px;
+}
+.ui.icon {
+  color: #fff;
+}
+img {
+  border-radius: 100%;
+}
+
+button.ui.circular.icon.button {
+  background-color: #252839;
+}

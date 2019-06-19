@@ -1,0 +1,36 @@
+h2.ui.left.aligned.header {
+  color: white;
+}
+
+.topComp {
+  padding: 0px 75px;
+}
+
+.box {
+  align-content: left;
+  background-color: #6c6e7e;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  min-height: 6em;
+  padding: 25px;
+  border-radius: 10px;
+}
+p > span {
+  text-align: left;
+}
+
+.ui.card {
+  background-color: #6c6e7e;
+  border-radius: 10px;
+}
+.submitButton {
+  width: 25%;
+}
+.ui.icon {
+  color: #fff;
+}
+img {
+  border-radius: 100%;
+}
