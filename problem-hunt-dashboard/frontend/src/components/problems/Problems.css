@@ -44,3 +44,13 @@ img {
 button.ui.circular.icon.button {
   background-color: #252839;
 }
+
+.ui.rail {
+  width: 345px;
+}
+
+.ui.left.rail {
+  position: initial;
+  padding: initial;
+  margin: 0 0 0 0;
+}

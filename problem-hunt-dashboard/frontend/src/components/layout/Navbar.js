@@ -57,6 +57,12 @@ export class Navbar extends Component {
           <Icon name="home" color="blue" size="large" /> ProblemHunt
         </Menu.Item>
         <Menu.Menu position="right">
+          <Menu.Item
+            header
+            name="community"
+            active={false}
+            content="The Community"
+          />
           <Menu.Item>
             <Input icon="search" placeholder="Search..." />
           </Menu.Item>
