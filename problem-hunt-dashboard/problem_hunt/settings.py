@@ -172,6 +172,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+SOCIALACCOUNT_ADAPTER = 'app.adapters.UserAccountAdapter'
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 

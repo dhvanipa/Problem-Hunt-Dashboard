@@ -12,11 +12,94 @@ import {
   Checkbox,
   Form,
   Table,
+  Message,
 } from 'semantic-ui-react';
 import './Top.css';
+import Cookies from 'js-cookie';
 
 export class Top extends Component {
+  constructor (props) {
+    super (props);
+    this.state = {
+      idea_name: '',
+      idea_desc: '',
+      submitAuthError: false,
+      submitFieldsError: false,
+      submitSuccess: false,
+    };
+
+    this.handleIdeaNameChange = this.handleIdeaNameChange.bind (this);
+    this.handleIdeaDescChange = this.handleIdeaDescChange.bind (this);
+    this.postIdea = this.postIdea.bind (this);
+  }
+
+  handleIdeaNameChange (event) {
+    this.setState ({idea_name: event.target.value});
+  }
+
+  handleIdeaDescChange (event) {
+    this.setState ({idea_desc: event.target.value});
+  }
+
+  postIdea () {
+    console.log ('Posting');
+    if (this.state.idea_name == '' || this.state.idea_desc == '') {
+      this.setState ({
+        submitAuthError: false,
+        submitSuccess: false,
+        submitFieldsError: true,
+      });
+    } else {
+      var idea = {name: this.state.idea_name, short_desc: this.state.idea_desc};
+      fetch ('api/ideas/', {
+        method: 'POST',
+        body: JSON.stringify (idea),
+        headers: {
+          'X-CSRFToken': Cookies.get ('csrftoken'),
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+        .then (res => {
+          if (res.status == 200) {
+            res.json ();
+            this.setState ({
+              idea_name: '',
+              idea_desc: '',
+              submitAuthError: false,
+              submitSuccess: true,
+              submitFieldsError: false,
+            });
+          } else {
+            this.setState ({
+              submitAuthError: true,
+              submitSuccess: false,
+              submitFieldsError: false,
+            });
+          }
+        })
+        .then (
+          result => {
+            console.log (result);
+          },
+          // Note: it's important to handle errors here
+          // instead of a catch() block so that we don't swallow
+          // exceptions from actual bugs in components.
+          error => {
+            console.log (result);
+          }
+        );
+    }
+  }
+
   render () {
+    const {
+      idea_name,
+      idea_desc,
+      submitAuthError,
+      submitSuccess,
+      submitFieldsError,
+    } = this.state;
     return (
       <div className="topComp">
         <Grid columns="equal">
@@ -39,26 +122,52 @@ export class Top extends Component {
 
           <Grid.Row columns="equal">
             <Grid.Column>
-              <Form inverted className="box">
+              <Form inverted className="box" onSubmit={this.postIdea}>
                 <Form.Field>
                   <label>Idea Name</label>
-                  <input placeholder="Idea Name" />
+                  <input
+                    placeholder="Idea Name"
+                    value={idea_name}
+                    onChange={this.handleIdeaNameChange}
+                  />
                 </Form.Field>
                 <Form.Field>
                   <Form.TextArea
                     label="Idea Description"
                     placeholder="Tell us more about your idea..."
+                    value={idea_desc}
+                    onChange={this.handleIdeaDescChange}
                   />
                 </Form.Field>
-                <Button
-                  className="submitButton"
-                  inverted
-                  color="green"
-                  type="submit"
-                >
-                  Submit
-                </Button>
+                <Form.Field>
+                  <Button
+                    className="submitButton"
+                    inverted
+                    color="green"
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </Form.Field>
               </Form>
+              <Message hidden={!submitAuthError} warning>
+                <Message.Header>
+                  You must register before you can do that!
+                </Message.Header>
+                <p>Visit our registration page, then try again.</p>
+              </Message>
+              <Message hidden={!submitFieldsError} negative>
+                <Message.Header>
+                  Submit Error!
+                </Message.Header>
+                <p>Fields cannot be empty.</p>
+              </Message>
+              <Message hidden={!submitSuccess} positive>
+                <Message.Header>Idea submitted!</Message.Header>
+                <p>
+                  Scroll down to see your idea.
+                </p>
+              </Message>
             </Grid.Column>
 
             <Grid.Column>
