@@ -27,33 +27,39 @@ export class Problems extends Component {
 
   constructor (props) {
     super (props);
-    this.state = {ideas: null, commentsText: {}};
+    this.state = {ideas: null, allComments: {}, commentsText: {}};
     this.likeIdea = this.likeIdea.bind (this);
     this.notificationDOMRef = React.createRef ();
   }
 
   getCommentsForIdea (idea_id) {
     console.log ('getting comments');
-    fetch ('api/idea/' + idea_id + '/comments').then (res => res.json ()).then (
+    if (idea_id in this.state.allComments) {
+      return this.state.allComments[idea_id].map ((el, i) => ( // Maybe, there is a better key :D
+        <Comment>
+          <Comment.Avatar as="a" src={el.creator_pic} />
+          <Comment.Content>
+            <Comment.Author as="a">{el.creator_name}</Comment.Author>
+            <Comment.Metadata>
+              <span>Today at 5:42PM</span>
+            </Comment.Metadata>
+            <Comment.Text>{el.text}</Comment.Text>
+            {/* <Comment.Actions>
+              <a>Reply</a>
+            </Comment.Actions> */}
+          </Comment.Content>
+        </Comment>
+      ));
+    }
+  }
+
+  getIdeas () {
+    console.log ('getting ideas');
+    fetch ('api/ideas/').then (res => res.json ()).then (
       result => {
-        return result['list'].map ((el, i) => ( // Maybe, there is a better key :D
-          <Comment>
-            <Comment.Avatar
-              as="a"
-              src="https://react.semantic-ui.com/images/avatar/small/matt.jpg"
-            />
-            <Comment.Content>
-              <Comment.Author as="a">Matt</Comment.Author>
-              <Comment.Metadata>
-                <span>Today at 5:42PM</span>
-              </Comment.Metadata>
-              <Comment.Text>How artistic!</Comment.Text>
-              <Comment.Actions>
-                <a>Reply</a>
-              </Comment.Actions>
-            </Comment.Content>
-          </Comment>
-        ));
+        this.setState ({
+          ideas: result['list'],
+        });
       },
       // Note: it's important to handle errors here
       // instead of a catch() block so that we don't swallow
@@ -66,12 +72,14 @@ export class Problems extends Component {
     );
   }
 
-  getIdeas () {
-    console.log ('getting ideas');
-    fetch ('api/ideas/').then (res => res.json ()).then (
+  showComment (el, data) {
+    console.log (data.id);
+    fetch ('api/idea/' + data.id + '/comments').then (res => res.json ()).then (
       result => {
+        var new_comments = this.state.allComments;
+        new_comments[data.id] = result['list'];
         this.setState ({
-          ideas: result['list'],
+          allComments: new_comments,
         });
       },
       // Note: it's important to handle errors here
@@ -101,6 +109,7 @@ export class Problems extends Component {
         if (res.status == 200) {
           console.log (res);
           toast ('Success, added comment!', {type: toast.TYPE.SUCCESS});
+          showComment (el, data);
           return res.json ();
         } else {
         }
@@ -189,7 +198,12 @@ export class Problems extends Component {
               <Label as="a" basic pointing="left">
                 {el.num_likes}
               </Label>
-              <Button circular icon="comment" />
+              <Button
+                id={el.id}
+                circular
+                icon="comment"
+                onClick={(el, data) => this.showComment (el, data)}
+              />
               <Label as="a" basic pointing="left">
                 {el.num_comments}
               </Label>
